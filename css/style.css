@@ -28,10 +28,12 @@ body{
     background-color: #06013F;
 }
 .iframe{
-    width: 200px;
+    /* width: 20vw; */
     max-width: max-content;
     height: 400px;
     border-radius: 20px;
+    margin: auto;
+
 }
 .information h2{
     font-weight: bolder;
@@ -39,8 +41,8 @@ body{
 }
 .information2 h3{
     font-weight: bolder;
-    font-size: 40px;  
-    margin: auto;
+    font-size: 3.5vw;  
+    /* margin: auto; */
     font-weight: 600;
     text-align: center;
     font-size: 40px;
@@ -48,33 +50,52 @@ body{
 }
 .information{
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    background-color: #527686b0;
-    margin: auto;
+    grid-template-columns: 1fr 1fr;
+    /* background-color: #527686b0; */
+    /* margin: auto; */
+    /* margin-left: 3vw; */
+    gap: 1vw;
     width: 75vw;
+    margin-left: 5vw;
     margin-top: 2%;
+    height: fit-content;
+}
+.information2{
+    direction: rtl;
+    text-align: right;
+    background-color: #5276869f;
+    width:max-content;
 }
 .information2 p{
     font-weight: 100;
-    font-size: large;
+    font-size: 2.5vw;
     color: #fff;
     direction: rtl;
     /* text-align: center; */
     white-space: pre;
     padding-bottom: 1%;
-    background-color: #5276869f;
-    width: 30vw;
+
 }
 .a{
-    /* border: solid; */
-    /* margin: 0 0.5%; */
     padding: 0;
-    /* width: 80%; */
-    /* height: ; */
+}
+.map{
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    margin-top: 3vw ;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    margin-bottom: 3vw;
+}
+.location{
+    background-color: #5276869f;
+    border: #06013F 1px;
 }
 .location h2{
-    margin:auto;
     text-align: center;
+    font-size: 4vw;
+    /* margin-right: 1px; */
 }
 h1{
     margin: 0 45%;
@@ -104,6 +125,7 @@ h2{
     .navbar .menu li{
     list-style: none;
     padding: 5px 10px;
+    font-size: 1.5vw;
     }
  .navbar .menu{
     display: flex;
@@ -115,7 +137,7 @@ h2{
     font-weight: 900;
     font-style: italic;
     align-self:center;
-    font-size: 30px;
+    font-size: 2.5vw;
     margin-left:20px;
     color: #1208AB;
     font-family: 'Dancing Script', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
