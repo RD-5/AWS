@@ -4,217 +4,695 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Another World Station</title>
+    <style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #fff;
+        min-height: 100vh;
+    }
+    
+    .logo {
+        font-family: 'Orbitron', sans-serif;
+    }
+    
+    .nav-dropdown {
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+    }
+    
+    .nav-dropdown.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .hamburger-btn {
+        position: relative;
+        width: 30px;
+        height: 24px;
+        cursor: pointer;
+    }
+    
+    .hamburger-btn span {
+        position: absolute;
+        height: 3px;
+        width: 100%;
+        background: #fff;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+    
+    .hamburger-btn span:nth-child(1) {
+        top: 0;
+    }
+    
+    .hamburger-btn span:nth-child(2) {
+        top: 10px;
+    }
+    
+    .hamburger-btn span:nth-child(3) {
+        top: 20px;
+    }
+    
+    .hamburger-btn.active span:nth-child(1) {
+        transform: rotate(45deg);
+        top: 10px;
+    }
+    
+    .hamburger-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger-btn.active span:nth-child(3) {
+        transform: rotate(-45deg);
+        top: 10px;
+    }
+    
+    .hero-section {
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    .game-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .game-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .glow-btn {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .glow-btn::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transform: rotate(45deg);
+        transition: all 0.5s ease;
+    }
+    
+    .glow-btn:hover::after {
+        left: 100%;
+    }
+
+    .menu-item {
+        transition: all 0.3s ease;
+    }
+    
+    .menu-item:hover {
+        transform: translateY(-3px);
+    }
+
+    .map-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 0.75rem;
+    }
+
+    .map-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+</style>
 </head>
-<script>
-    window.alert("اذا كنت تستخدم الهاتف المحمول، يفضّل تصفح الموقع بالعرض")
-</script>
-<link rel="stylesheet" href="./css/style.css">
 <body>
-    <div id="UP"><a href="#Home"><img width="50px" src="./images/UP.png" alt=""></a></div>
-    <div class="navbar">
-        <div class="title">Another World Station</div>
-        <ul class="menu">
-         <li><a href="#Info">Info</a></li>
-         <li><a href="#Games">Games</a></li>
-         <li><a href="#Services">Services</a></li>
-         <li><a href="#">Help</a></li>
-         <li><input type="text" placeholder="هل لديك سؤال؟"> <button><a href="https://wa.me/963969620348?input">أرسل سؤالك</a></button></li>
-     </ul>
-    </div>
-    <br>
-    <div id="Home" class="MainBody">
-    </div>
-    <div id="Info"></div>
-    <div class="information" >
-        <div class="location">
-        <h2>Our Location</h2>
-        <div class="map">
-        <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d831.8791521950973!2d36.34456178463712!3d33.48793391516054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1518e11eeda4d547%3A0x21d4b3e324090b50!2sAnother%20World%20Station!5e0!3m2!1sen!2s!4v1746566062271!5m2!1sen!2s" 
-        width="400px" height="400" style="border:0;" 
-        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
-    </div>
-    <div class="information2">
-        <div class="a">
-            <h3>أيام الدوام</h3>
-            <p>
- كل أيام الأسبوع
- (سبت - أحد - إثنين - ثلاثاء - أربعاء - خميس - جمعة)
-            </p>
-        </div>
-        <div class="a">
-            <h3>أوقات الدوام</h3>
-                <p>
- من الساعة 10 صباحاً
- حتى الساعة 2 بعد منتصف الليل
-            </p>
-        </div>
-        <div class="a">
-            <h3>العنوان</h3>
-            <p>
- ريف دمشق، مدينة جرمانا، شارع الروضة حارة عصائر كيوي</p>
-        </div>
-        <div class="a">
-            <h3>تواصل معنا</h3>
-            <p id="links">
-        <a target="_blank" href="https://wa.me/963969620348">WhatsApp</a><a target="_blank" href="https://www.facebook.com/profile.php?id=61561119716564&mibextid=ZbWKwL">Facebook</a><a href="https://www.instagram.com/another_world_station?igsh=NGh4M2VkNXVpM3lz&utm_source=qr">Instagram</a>
-            </p>
-        </div>
-    </div>
-    </div>
-        <div class="fb">
-            <h1> مباريات </h1>
-            <div class="fbLegues">
-                <div class="fb-content">
-                    <span id="Laliga"> <a href="https://beta.kooora.com/%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D9%82%D8%AF%D9%85/%D9%85%D8%B3%D8%A7%D8%A8%D9%82%D8%A9/%D8%A7%D9%84%D8%AF%D9%88%D8%B1%D9%8A-%D8%A7%D9%84%D8%A7%D9%95%D8%B3%D8%A8%D8%A7%D9%86%D9%8A-%D9%84%D8%A7-%D9%84%D9%8A%D8%AC%D8%A7/%D8%AC%D8%AF%D9%88%D9%84/34pl8szyvrbwcmfkuocjm3r6t"><img height="100px" src="./images/football/pngwing.com (3).png" alt=""></a></span>
-                    <span id="Champions"><a href="https://beta.kooora.com/%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D9%82%D8%AF%D9%85/%D9%85%D8%B3%D8%A7%D8%A8%D9%82%D8%A9/%D8%AF%D9%88%D8%B1%D9%8A-%D8%A3%D8%A8%D8%B7%D8%A7%D9%84-%D8%A3%D9%88%D8%B1%D9%88%D8%A8%D8%A7/4oogyu6o156iphvdvphwpck10"> <img height="100px" src="./images/football/Champions2.png" alt=""></a></span>
-                    <span id="Bundesliga"> <a href="https://beta.kooora.com/%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D9%82%D8%AF%D9%85/%D9%85%D8%B3%D8%A7%D8%A8%D9%82%D8%A9/%D8%A7%D9%84%D8%AF%D9%88%D8%B1%D9%8A-%D8%A7%D9%84%D8%A7%D9%94%D9%84%D9%85%D8%A7%D9%86%D9%8A/6by3h89i2eykc341oz7lv1ddd"><img height="100px" src="./images/football/Bundesliga.png" alt=""></a></span>
-                    <span id="Serie"><a href="https://beta.kooora.com/%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D9%82%D8%AF%D9%85/%D9%85%D8%B3%D8%A7%D8%A8%D9%82%D8%A9/%D8%A7%D9%84%D8%AF%D9%88%D8%B1%D9%8A-%D8%A7%D9%84%D8%A5%D9%8A%D8%B7%D8%A7%D9%84%D9%8A/1r097lpxe0xn03ihb7wi98kao"><img height="100px" src="./images/football/Serie A.jpg" alt=""></a></span>
-                    <span id="Premier"><a href="https://beta.kooora.com/%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D9%82%D8%AF%D9%85/%D9%85%D8%B3%D8%A7%D8%A8%D9%82%D8%A9/%D8%A7%D9%84%D8%AF%D9%88%D8%B1%D9%8A-%D8%A7%D9%84%D8%A5%D9%86%D8%AC%D9%84%D9%8A%D8%B2%D9%8A-%D8%A7%D9%84%D9%85%D9%85%D8%AA%D8%A7%D8%B2/2kwbbcootiqqgmrzs6o5inle5"><img height="100px" src="./images/football/Premier2.png" alt=""></a></span>
+    
+            <div class="relative">
+                <div id="hamburger" class="hamburger-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                
+                <div id="dropdown" class="nav-dropdown absolute right-0 mt-3 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 z-50">
+                    <div class="py-1">
+                        <a href="#home" class="block px-4 py-3 text-sm hover:bg-gray-700 transition-all">Home</a>
+                        <a href="#games" class="block px-4 py-3 text-sm hover:bg-gray-700 transition-all">Games</a>
+                        <a href="#menu" class="block px-4 py-3 text-sm hover:bg-gray-700 transition-all">Menu</a>
+                        <a href="#info" class="block px-4 py-3 text-sm hover:bg-gray-700 transition-all">Information</a>
+                        <a href="#contact" class="block px-4 py-3 text-sm hover:bg-gray-700 transition-all">Contact Us</a>
+                    </div>
                 </div>
             </div>
-            <div class="book" id="btn"><a target="_blank" href="https://wa.me/963969620348?text=مرحباً، أريد الحجز لمشاهدة مباراة">أحجز الآن</a></div>
-        </div>
-        <div id="Games"></div>
-        <h2 id="PS">PlayStation بلاي ستيشن</h2>
-    <div class="grid-container">
-        <div class="card"><img width="200px" src="./images/PS/PES.JPG" alt=""><br>PES 25</div>
-        <div class="card"><img width="200px" src="./images/PS/EA FC 25.jpg" alt=""><br>FIFA 25</div>
-        <div class="card"><img width="200px" src="./images/PS/MK11.JPG" alt=""><br>Mortal Kombat 11</div>
-        <div class="card"><img width="200px" src="./images/PS/gta.JPG" alt=""> <br>GTA Vice City</div>
-        <div class="card"><img width="200px" src="./images/PS/COD3.JPG" alt=""><br>Call Of Duty 3</div>
-        <div class="card"><img width="200px" src="./images/PS/COD4.jpg" alt=""><br>Call Of Duty 4</div>
-        <div class="card"><img width="200px" src="./images/PS/NFS.JPG" alt=""><br>Need For Speed</div>
-        <div class="card"><img width="200px" src="./images/PS/itTakes2.JPG" alt=""><br>It Takes Two</div>
+        </nav>
     </div>
-    <div class="table">
-        <div class="tableCard pingPong"><h2>Ping Pong بينغ بونغ </h2><br><img width="300px" src="./images/Ping/pingPong2.jpg" alt=""></div>
-        <!-- <span class="space"></span> -->
-        <div class="tableCard billiard"><h2>Billiard بلياردو</h2><br><img width="300px" src="./images/Bill/Billiard 2.jpg" alt=""></div>
-        <!-- <span class="space"></span> -->
-        <div class="tableCard board"><h2>Board Games</h2>
-            <br> <div class=" image-slider"></div>
-        </div>
-    </div>
-<br>
-<div id="Services"></div>
-    <div class="services" id="Services">
-        <div class="food">
-            <h3>مشروبات ساخنة</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <td id="Eng">Hot Chocolate</td>
-                        <td id="Ar">هوت شوكليت</td>
-                    </tr>
-                    <tr>
-                        <td id="Eng">Nescafeَ</td>
-                        <td id="Ar">نسكافيه</td>
-                    </tr>
-                    <tr>
-                        <td id="Eng">Coffee</td>
-                        <td id="Ar">قهوة</td>
-                    </tr>
-                    <tr>
-                        <td id="Eng">Milo</td>
-                        <td id="Ar">ميلو</td>
-                    </tr>
-                    <tr>
-                        <td id="Eng">Camon Lemon</td>
-                        <td id="Ar">كمون وليمون</td>
-                    </tr>
-                    <tr>
-                        <td id="Eng">Zhourat</td>
-                        <td id="Ar">زهورات</td>
-                    </tr>
-                    <tr>
-                        <td id="Eng">Tee</td>
-                        <td id="Ar">شاي</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-          <!-- <div class="space"></div> -->
-        <div class="food"><h3>مشروبات باردة</h3>
-        <table>
-            <tbody>
-                <tr>
-                    <td id="Eng">Pepsi</td>
-                    <td id="Ar">بيبسي</td>
-                </tr>
-                <tr>
-                    <td id="Eng">7up</td>
-                    <td id="Ar">سفن اب</td>
-                </tr>
-                <tr>
-                    <td id="Eng">Zoya</td>
-                    <td id="Ar">زويا</td>
-                </tr> 
-                <tr>
-                    <td id="Eng">Orange Juice</td>
-                    <td id="Ar">عصير برتقال</td>
-                </tr> 
-                <tr>
-                    <td id="Eng">Mango Juice</td>
-                    <td id="Ar">عصير ماغنو</td>
-                </tr> 
-                <tr>
-                    <td id="Eng">and other juices</td>
-                    <td id="Ar">وغيره</td>
-                </tr> 
-            </tbody>
-        </table>
-        </div>
-        <!-- <div class="space"></div> -->
-            <div class="food">
-        <div class="food2"><h3>أراجيل</h3>
-        <table>
-            <tbody>
-                <tr>
-                    <td id="Eng">Tfahten</td>
-                    <td id="Ar">تفاحتين</td>
-                </tr>
-                <tr>
-                    <td id="Eng">Mint</td>
-                    <td id="Ar">نعنع</td>
-                </tr>
-                <tr>
-                    <td id="Eng">BlueBerry</td>
-                    <td id="Ar">بلو بيري</td>
-                </tr>
-                <tr>
-                    <td id="Eng">Love</td>
-                    <td id="Ar">لاف</td>
-                </tr>
-            </tbody>
-        </div>
-        </table>
-        <div class="food2"> <h3>مأكولات</h3>
-        <table >
-            <tbody>                
-                <tr>
-                    <td id="Eng">Chips</td>
-                    <td id="Ar">شيبس</td>
-                </tr>
-                <tr>
-                    <td id="Eng">Endomie</td>
-                    <td id="Ar">إندومي</td>
-                </tr>
-                <tr>
-                    <td id="Eng">Biscuits</td>
-                    <td id="Ar">بسكوت</td>
-                </tr>
-                <tr>
-                    <td id="Eng">Goofer</td>
-                    <td id="Ar">غوفر</td>
-                </tr>
-            </tbody>
-        </table>
+</header>
+
+<main>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 logo">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">Another</span> World Station
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-300 mb-8">
+                        Your ultimate gaming destination with PlayStation, PC games, ping pong, billiard, board games, and more!
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#games" class="glow-btn px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full font-medium hover:from-purple-700 hover:to-blue-700 transition-all">
+                            Explore Games
+                        </a>
+                        <a href="#info" class="glow-btn px-8 py-3 bg-transparent border border-purple-500 rounded-full font-medium hover:bg-purple-900 hover:bg-opacity-20 transition-all">
+                            Visit Us
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <svg class="w-full h-auto" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#8B5CF6" />
+                                    <stop offset="100%" stop-color="#3B82F6" />
+                                </linearGradient>
+                                <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+                                </filter>
+                            </defs>
+                            
+                            <!-- Glow effects -->
+                            <circle cx="250" cy="200" r="120" fill="url(#glow1)" opacity="0.2" filter="url(#blur)" />
+                            
+                            <!-- Gaming console -->
+                            <rect x="150" y="150" width="200" height="100" rx="10" fill="#2A2A3A" />
+                            <rect x="160" y="160" width="180" height="80" rx="5" fill="#1A1A2A" />
+                            
+                            <!-- Controller -->
+                            <path d="M250,280 C210,280 180,260 180,240 C180,220 210,200 250,200 C290,200 320,220 320,240 C320,260 290,280 250,280 Z" fill="#2A2A3A" />
+                            <circle cx="220" cy="240" r="10" fill="#6366F1" />
+                            <circle cx="280" cy="240" r="10" fill="#8B5CF6" />
+                            <rect x="240" y="230" width="20" height="20" rx="5" fill="#3B82F6" />
+                            
+                            <!-- Billiard elements -->
+                            <circle cx="150" cy="100" r="15" fill="#22543D" />
+                            <circle cx="180" cy="90" r="15" fill="#1A202C" />
+                            <circle cx="170" cy="120" r="15" fill="#E53E3E" />
+                            
+                            <!-- Ping pong elements -->
+                            <rect x="320" y="100" width="60" height="40" rx="3" fill="#2D3748" />
+                            <circle cx="350" cy="120" r="10" fill="#FFFFFF" />
+                            <rect x="340" y="90" width="20" height="5" fill="#718096" />
+                            <rect x="340" y="145" width="20" height="5" fill="#718096" />
+                            
+                            <!-- Board game elements -->
+                            <rect x="100" y="320" width="40" height="40" rx="3" fill="#4A5568" />
+                            <circle cx="110" cy="330" r="5" fill="#FC8181" />
+                            <circle cx="130" cy="330" r="5" fill="#4299E1" />
+                            <circle cx="110" cy="350" r="5" fill="#68D391" />
+                            <circle cx="130" cy="350" r="5" fill="#F6E05E" />
+                            
+                            <!-- PC gaming elements -->
+                            <rect x="360" y="320" width="40" height="40" rx="3" fill="#2D3748" />
+                            <rect x="365" y="325" width="30" height="20" rx="2" fill="#1A202C" />
+                            <rect x="370" y="350" width="20" height="5" fill="#A0AEC0" />
+                        </svg>
+                    </div>
+                </div>
             </div>
-       </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="py-16 bg-gray-900 bg-opacity-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 logo text-center">Our Games</h2>
+            <p class="text-gray-400 text-center mb-12">Discover our wide variety of gaming options</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- PlayStation Games -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-blue-600 to-indigo-800 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-24 h-24 text-white opacity-30" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9.5 6.5v11h-3v-11h3m1-1h-5v13h5v-13zm4-1l-3 1.5v11l3 1.5v-14m1-1.5v17l-5-2.5v-12l5-2.5zm3 2.5v12h-2v-12h2m1-1h-4v14h4v-14z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">PlayStation Games</h3>
+                        <p class="text-gray-400 mb-4">Enjoy the latest PlayStation titles on our high-end consoles with premium displays.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 text-xs px-3 py-1 rounded-full">FIFA 23</span>
+                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 text-xs px-3 py-1 rounded-full">Call of Duty</span>
+                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 text-xs px-3 py-1 rounded-full">God of War</span>
+                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 text-xs px-3 py-1 rounded-full">Spider-Man</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PC Games -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-purple-600 to-indigo-800 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-24 h-24 text-white opacity-30" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M4 6h16v12H4V6m16 13c.55 0 1-.45 1-1V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h16M7 13v-3h2v3H7m0 3v-2h2v2H7m3-6v3h2v-3h-2m0 6v-2h2v2h-2m3-6v3h2v-3h-2m0 6v-2h2v2h-2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">PC Games</h3>
+                        <p class="text-gray-400 mb-4">Experience gaming on powerful gaming PCs with high-end graphics and peripherals.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-purple-900 bg-opacity-50 text-purple-300 text-xs px-3 py-1 rounded-full">League of Legends</span>
+                            <span class="bg-purple-900 bg-opacity-50 text-purple-300 text-xs px-3 py-1 rounded-full">Valorant</span>
+                            <span class="bg-purple-900 bg-opacity-50 text-purple-300 text-xs px-3 py-1 rounded-full">CS:GO</span>
+                            <span class="bg-purple-900 bg-opacity-50 text-purple-300 text-xs px-3 py-1 rounded-full">Fortnite</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ping Pong -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-green-600 to-teal-800 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-24 h-24 text-white opacity-30" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.5,14C19.9,14 21,15.1 21,16.5C21,17.9 19.9,19 18.5,19C17.1,19 16,17.9 16,16.5C16,15.1 17.1,14 18.5,14M18.5,12C16,12 14,14 14,16.5C14,19 16,21 18.5,21C21,21 23,19 23,16.5C23,14 21,12 18.5,12M2,11H4V13H2V11M16.1,1.6L14.7,3L16.5,4.8L17.9,3.4L16.1,1.6M9.4,1.6L7.6,3.4L9,4.8L10.8,3L9.4,1.6M5,5H7V7H5V5M8,5H10V7H8V5M11,5H13V7H11V5M14,5H16V7H14V5M17,5H19V7H17V5M8,8H10V10H8V8M11,8H13V10H11V8M14,8H16V10H14V8M17,8H19V10H17V8M8,11H10V13H8V11M11,11H13V13H11V11M14,11H16V13H14V11M17,11H19V13H17V11M8,14H10V16H8V14M11,14H13V16H11V14M14,14H16V16H14V14M5,17H7V19H5V17M8,17H10V19H8V17M11,17H13V19H11V17M14,17H16V19H14V17M2,14H4V16H2V14M2,17H4V19H2V17M2,8H4V10H2V8M2,5H4V7H2V5Z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Ping Pong</h3>
+                        <p class="text-gray-400 mb-4">Challenge your friends to exciting ping pong matches on our professional tables.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-green-900 bg-opacity-50 text-green-300 text-xs px-3 py-1 rounded-full">Singles</span>
+                            <span class="bg-green-900 bg-opacity-50 text-green-300 text-xs px-3 py-1 rounded-full">Doubles</span>
+                            <span class="bg-green-900 bg-opacity-50 text-green-300 text-xs px-3 py-1 rounded-full">Tournaments</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Billiard -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-red-600 to-yellow-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-24 h-24 text-white opacity-30" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M11,13H13V15H11V13M11,9H13V11H11V9M11,17H13A2,2 0 0,0 15,15V13.5A1.5,1.5 0 0,0 13.5,12A1.5,1.5 0 0,0 15,10.5V9A2,2 0 0,0 13,7H11A2,2 0 0,0 9,9V10.5A1.5,1.5 0 0,0 10.5,12A1.5,1.5 0 0,0 9,13.5V15A2,2 0 0,0 11,17M12,1C5.92,1 1,5.92 1,12C1,18.08 5.92,23 12,23C18.08,23 23,18.08 23,12C23,5.92 18.08,1 12,1M12,21C7.03,21 3,16.97 3,12C3,7.03 7.03,3 12,3C16.97,3 21,7.03 21,12C21,16.97 16.97,21 12,21Z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Billiard</h3>
+                        <p class="text-gray-400 mb-4">Play on our premium billiard tables with professional equipment and comfortable surroundings.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-red-900 bg-opacity-50 text-red-300 text-xs px-3 py-1 rounded-full">8-Ball</span>
+                            <span class="bg-red-900 bg-opacity-50 text-red-300 text-xs px-3 py-1 rounded-full">9-Ball</span>
+                            <span class="bg-red-900 bg-opacity-50 text-red-300 text-xs px-3 py-1 rounded-full">Snooker</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Board Games -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-yellow-600 to-orange-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-24 h-24 text-white opacity-30" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M4,3H20A1,1 0 0,1 21,4V20A1,1 0 0,1 20,21H4A1,1 0 0,1 3,20V4A1,1 0 0,1 4,3M4,5V19H20V5H4M6,7H8V9H6V7M10,7H12V9H10V7M14,7H16V9H14V7M18,7H20V9H18V7M6,11H8V13H6V11M10,11H12V13H10V11M14,11H16V13H14V11M18,11H20V13H18V11M6,15H8V17H6V15M10,15H12V17H10V15M14,15H16V17H14V15M18,15H20V17H18V15Z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Board Games</h3>
+                        <p class="text-gray-400 mb-4">Enjoy our collection of classic and modern board games with friends and family.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-yellow-900 bg-opacity-50 text-yellow-300 text-xs px-3 py-1 rounded-full">Monopoly</span>
+                            <span class="bg-yellow-900 bg-opacity-50 text-yellow-300 text-xs px-3 py-1 rounded-full">Chess</span>
+                            <span class="bg-yellow-900 bg-opacity-50 text-yellow-300 text-xs px-3 py-1 rounded-full">Catan</span>
+                            <span class="bg-yellow-900 bg-opacity-50 text-yellow-300 text-xs px-3 py-1 rounded-full">UNO</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- VR Experience -->
+                <div class="game-card rounded-xl overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-blue-500 to-purple-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-24 h-24 text-white opacity-30" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M5,3C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3H5M7,9H10V12H7V9M11,9H14V12H11V9M15,9H18V12H15V9M7,13H10V16H7V13M11,13H14V16H11V13M15,13H18V16H15V13Z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">VR Experience</h3>
+                        <p class="text-gray-400 mb-4">Step into virtual worlds with our cutting-edge VR equipment and immersive games.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 text-xs px-3 py-1 rounded-full">Beat Saber</span>
+                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 text-xs px-3 py-1 rounded-full">Half-Life: Alyx</span>
+                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 text-xs px-3 py-1 rounded-full">VR Chat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 logo text-center">Our Menu</h2>
+            <p class="text-gray-400 text-center mb-12">Fuel your gaming session with our delicious offerings</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Drinks Menu -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-6 border border-gray-700">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="w-16 h-16 bg-blue-900 bg-opacity-30 rounded-full flex items-center justify-center">
+                            <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-6">Drinks</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Coffee</span>
+                            <span class="text-blue-400">$3.50</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Energy Drinks</span>
+                            <span class="text-blue-400">$4.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Soft Drinks</span>
+                            <span class="text-blue-400">$2.50</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Fresh Juices</span>
+                            <span class="text-blue-400">$4.50</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Milkshakes</span>
+                            <span class="text-blue-400">$5.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Hot Chocolate</span>
+                            <span class="text-blue-400">$3.75</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Tea</span>
+                            <span class="text-blue-400">$3.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Water</span>
+                            <span class="text-blue-400">$1.50</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Snacks Menu -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-6 border border-gray-700">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="w-16 h-16 bg-yellow-900 bg-opacity-30 rounded-full flex items-center justify-center">
+                            <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-6">Snacks</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Nachos</span>
+                            <span class="text-yellow-400">$6.50</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">French Fries</span>
+                            <span class="text-yellow-400">$4.50</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Chicken Wings</span>
+                            <span class="text-yellow-400">$8.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Pizza Slices</span>
+                            <span class="text-yellow-400">$5.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Sandwiches</span>
+                            <span class="text-yellow-400">$7.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Chips</span>
+                            <span class="text-yellow-400">$2.50</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Popcorn</span>
+                            <span class="text-yellow-400">$3.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Chocolate Bars</span>
+                            <span class="text-yellow-400">$2.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Shisha Menu -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-6 border border-gray-700">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="w-16 h-16 bg-purple-900 bg-opacity-30 rounded-full flex items-center justify-center">
+                            <svg class="w-8 h-8 text-purple-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12,3C16.97,3 21,7.03 21,12C21,12.83 20.88,13.65 20.67,14.41L18.1,13.83C18.35,13.27 18.5,12.65 18.5,12C18.5,8.42 15.58,5.5 12,5.5C8.42,5.5 5.5,8.42 5.5,12C5.5,15.58 8.42,18.5 12,18.5C12.37,18.5 12.73,18.47 13.08,18.41L13.59,20.97C13.07,21.03 12.54,21.06 12,21.06C7.03,21.06 3,17.03 3,12C3,7.03 7.03,3 12,3M12,7C14.76,7 17,9.24 17,12C17,12.65 16.84,13.26 16.57,13.8L14.83,13.39C14.93,12.94 15,12.47 15,12C15,10.34 13.66,9 12,9C10.34,9 9,10.34 9,12C9,13.66 10.34,15 12,15C12.47,15 12.94,14.93 13.39,14.83L13.8,16.57C13.26,16.84 12.65,17 12,17C9.24,17 7,14.76 7,12C7,9.24 9.24,7 12,7M12,11C12.55,11 13,11.45 13,12C13,12.55 12.55,13 12,13C11.45,13 11,12.55 11,12C11,11.45 11.45,11 12,11Z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-6">Shisha</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Classic Flavors</span>
+                            <span class="text-purple-400">$15.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Premium Flavors</span>
+                            <span class="text-purple-400">$18.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Fruit Mix</span>
+                            <span class="text-purple-400">$20.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Special House Mix</span>
+                            <span class="text-purple-400">$22.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Mint Fusion</span>
+                            <span class="text-purple-400">$18.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Double Apple</span>
+                            <span class="text-purple-400">$16.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Blue Mist</span>
+                            <span class="text-purple-400">$17.00</span>
+                        </div>
+                        <div class="menu-item flex justify-between items-center">
+                            <span class="font-medium">Flavor Refill</span>
+                            <span class="text-purple-400">$10.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section id="info" class="py-16 bg-gray-900 bg-opacity-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 logo text-center">Information</h2>
+            <p class="text-gray-400 text-center mb-12">Everything you need to know about visiting us</p>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Map -->
+                <div class="md:w-1/2">
+                    <div class="bg-gray-800 bg-opacity-50 rounded-xl p-4 border border-gray-700 h-full">
+                        <h3 class="text-xl font-bold mb-4">Our Location</h3>
+                        <div class="map-container aspect-video">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.3059353029!2d-74.25986548248684!3d40.69714941774136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1651234567890!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hours and Address -->
+                <div class="md:w-1/2">
+                    <div class="bg-gray-800 bg-opacity-50 rounded-xl p-6 border border-gray-700 h-full">
+                        <h3 class="text-xl font-bold mb-6">Opening Hours & Address</h3>
+                        
+                        <div class="mb-8">
+                            <h4 class="text-lg font-semibold mb-3 text-purple-400">Opening Hours</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span>Monday - Thursday</span>
+                                    <span>10:00 AM - 12:00 AM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Friday</span>
+                                    <span>10:00 AM - 2:00 AM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Saturday</span>
+                                    <span>12:00 PM - 2:00 AM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Sunday</span>
+                                    <span>12:00 PM - 12:00 AM</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3 text-purple-400">Address</h4>
+                            <p class="mb-2">123 Gaming Street</p>
+                            <p class="mb-2">New York, NY 10001</p>
+                            <p class="mb-4">United States</p>
+                            
+                            <h4 class="text-lg font-semibold mb-3 text-purple-400">Contact</h4>
+                            <p class="mb-2">Phone: (123) 456-7890</p>
+                            <p>Email: info@anotherworldstation.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 logo text-center">Contact Us</h2>
+            <p class="text-gray-400 text-center mb-12">Get in touch with our team</p>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl p-8 border border-gray-700">
+                    <form id="contactForm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                                <input type="text" id="name" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                                <input type="email" id="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="subject" class="block text-sm font-medium text-gray-400 mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="glow-btn px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full font-medium hover:from-purple-700 hover:to-blue-700 transition-all">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-gray-900 py-10">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <a href="#" class="logo text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">
+                    Another World Station
+                </a>
+                <p class="text-gray-400 mt-2">Your ultimate gaming destination</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+            <p>&copy; 2023 Another World Station. All rights reserved.</p>
+        </div>
     </div>
-    <div class="bottom"></div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.getElementById('hamburger');
+        const dropdown = document.getElementById('dropdown');
+        
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            dropdown.classList.toggle('active');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!hamburger.contains(event.target) && !dropdown.contains(event.target)) {
+                hamburger.classList.remove('active');
+                dropdown.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                hamburger.classList.remove('active');
+                dropdown.classList.remove('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form submission (demo)
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            });
+        }
+    });
+</script>
 </body>
-</html>
