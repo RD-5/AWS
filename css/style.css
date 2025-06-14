@@ -12,22 +12,6 @@ body {
     color: #fff;
 }
 
-#UP {
-    z-index: 10;
-    position: fixed;
-    background-color: rgba(190, 218, 255, 0.2);
-    border-radius: 50%;
-    margin: 1%;
-    bottom: 20px;
-    right: 20px;
-    padding: 1%;
-    transition: transform 0.3s ease;
-}
-
-#UP:hover {
-    transform: scale(1.1);
-}
-
 /* Navbar */
 .navbar {
     width: 100%;
@@ -36,7 +20,7 @@ body {
     justify-content: space-between;
     align-items: center;
     position: fixed;
-    padding: 10px 20px;
+    padding: 15px 20px;
     z-index: 4;
 }
 
@@ -47,18 +31,37 @@ body {
     font-family: 'Dancing Script', cursive;
 }
 
+/* Dropdown for Menu */
+.menu-container {
+    position: relative;
+}
+
+.menu-button {
+    background-color: #8ECAE6;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
 .menu {
-    display: flex;
-    gap: 15px;
+    display: none;
+    position: absolute;
+    background-color: rgba(193, 191, 221, 0.9);
+    width: 200px;
+    top: 40px;
+    right: 0;
+    list-style: none;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .menu li {
-    list-style: none;
+    padding: 10px;
 }
 
 .menu a {
     color: #0d0385;
-    font-size: 1.2rem;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -67,85 +70,79 @@ body {
     color: #fff;
 }
 
-/* Main Body */
-.MainBody {
-    text-align: center;
-    background-image: url(../images/ad.PNG);
-    background-size: cover;
-    background-position: center;
-    height: 500px;
+/* Show Menu when Clicked */
+.menu-container:hover .menu {
+    display: block;
 }
 
-/* Information Section */
+/* Location Section */
 .information {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
     gap: 20px;
-    width: 80%;
+    width: 100vw;
     margin: auto;
 }
 
-.information h2 {
-    font-size: 2rem;
-    color: #8ECAE6;
-}
-
-.information2 {
+.location {
+    flex: 1;
     background-color: rgba(82, 118, 134, 0.6);
     padding: 20px;
     border-radius: 10px;
 }
 
-.information2 h3 {
-    text-align: center;
-    font-size: 1.8rem;
-    color: #75bfe2;
-}
-
-.information2 p {
-    font-size: 1.5rem;
-    color: #fff;
-}
-
-/* Games Section */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
+.information2 {
+    flex: 1;
+    background-color: rgba(82, 118, 134, 0.6);
     padding: 20px;
+    border-radius: 10px;
 }
 
-.card {
-    text-align: center;
+/* Scrolling League Section */
+.fbLegues {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(142, 202, 230, 0.6);
     padding: 10px;
-    border: 1px solid #527686;
-    transition: all 0.3s ease-in-out;
+    position: relative;
+    white-space: nowrap;
 }
 
-.card:hover {
-    background-color: #0e94b681;
-    color: #fff;
+.fb-content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scrollText 15s linear infinite;
 }
 
-/* Footer */
-.bottom {
-    background-color: #06013F;
-    height: 100px;
+.fb-content span {
+    height: 100%;
+    padding: 0 5%;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        padding: 15px;
-    }
+@keyframes scrollText {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+}
 
-    .menu {
-        flex-direction: column;
-        gap: 10px;
-    }
+/* Ping Pong & Billiard Sections */
+.table {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
 
-    .grid-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.tableCard {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(82, 118, 134, 0.6);
+}
+
+/* Arabic Text Sections */
+.food {
+    background-color: rgba(142, 202, 230, 0.2);
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
 }
